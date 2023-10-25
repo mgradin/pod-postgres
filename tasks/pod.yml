@@ -1,0 +1,19 @@
+- name: Create pgadmin directory
+  file:
+    path: "{{ VAR_PGADMIN_DIR }}"
+    state: directory
+    mode: '0777'
+
+
+- name: Create postgresql directory
+  file:
+    path: "{{ VAR_POSTGRESQL_DIR }}"
+    state: directory
+
+- name: Create db pod
+  containers.podman.podman_pod:
+    name: db
+    state: started
+    ports:
+      - "5432:5432"
+      - "5433:80"

@@ -1,0 +1,5 @@
+---
+# tasks file for pod-postgresql
+- import_tasks: pod.yml
+- import_tasks: pgadmin.yml
+- import_tasks: postgresql.yml

@@ -1,0 +1,18 @@
+- name: Pull latest pgadmin image
+  containers.podman.podman_image:
+    name: registry.hub.docker.com/dpage/pgadmin4:latest
+
+- name: Start pgadmin container
+  containers.podman.podman_container:
+    name: pgadmin
+    image: dpage/pgadmin4:latest
+    env:
+      PGADMIN_DEFAULT_EMAIL: "{{ VAR_EMAIL }}"
+      PGADMIN_DEFAULT_PASSWORD: "{{ VAR_PGADMIN_PASSWORD }}"
+    user: 5050
+    groups: 5050
+    state: started
+    volumes:
+      - "{{ VAR_PGADMIN_DIR }}:/var/lib/pgadmin:Z"
+    expose: 80/tcp
+    pod: db
